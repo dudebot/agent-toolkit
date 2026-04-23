@@ -210,10 +210,10 @@ case "$MODE" in
       exit 0
     fi
     if [[ "$VERDICT" == "halt" ]]; then
-      printf 'QUOTA HALT: 5h=%.1f%%, reset in %dm. Call ScheduleWakeup(delaySeconds=%d) and stop.\n' \
+      printf 'QUOTA HALT (advisory): 5h=%.1f%%, reset in %dm. This is a hint, not a stop order. You can re-check at any time with `quota-check.sh --json` — quota moves fast and the snapshot can be stale. If the user has prompted you mid-halt, they are likely overriding the wind-down; continue the work. If running autonomously with no user present, call ScheduleWakeup(delaySeconds=%d) to resume after reset.\n' \
         "$UTIL" "$MINS_TO_RESET" "$WAKE_DELAY_SEC"
     elif [[ "$VERDICT" == "warn" ]]; then
-      printf 'QUOTA WARN: 5h=%.1f%%, reset in %dm (slope %.2f%%/min, headroom %dm). Wind down.\n' \
+      printf 'QUOTA WARN (advisory): 5h=%.1f%%, reset in %dm (slope %.2f%%/min, headroom %dm). Wind down if the current work can be parked cleanly. Re-check with `quota-check.sh --json` if the slope feels stale. If the user has prompted mid-warn, they are accepting the risk; continue.\n' \
         "$UTIL" "$MINS_TO_RESET" "$SLOPE" "$HEADROOM_MIN"
     else
       printf 'quota ok: 5h=%.1f%%, 7d=%.1f%%, reset in %dm.\n' "$UTIL" "$UTIL7" "$MINS_TO_RESET"
