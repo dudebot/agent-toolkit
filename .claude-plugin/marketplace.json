@@ -14,6 +14,20 @@
       "description": "Adaptive Claude Max quota monitor; emits context at warn/halt thresholds and auto-schedules a wake after the 5h reset.",
       "category": "observability",
       "tags": ["quota", "claude-max", "hooks"]
+    },
+    {
+      "name": "plan-project",
+      "source": "plan-project",
+      "description": "Turns a settled architecture into a dispatch-ready workplan: phase-tagged tasks, paired tests, deterministic runbooks, and a graph the orchestrator can fan out from.",
+      "category": "workflow",
+      "tags": ["planning", "orchestration", "skills", "architecture"]
+    },
+    {
+      "name": "orchestrate-workplan",
+      "source": "orchestrate-workplan",
+      "description": "Drives a workplan to completion on a cheap, fast model. Mandatory TodoWrite for rails, deterministic runbook gates, more-capable verifier subagent on failure, architecture validator at phase boundaries.",
+      "category": "workflow",
+      "tags": ["orchestration", "haiku", "workplan", "skills", "automation"]
     }
   ]
 }

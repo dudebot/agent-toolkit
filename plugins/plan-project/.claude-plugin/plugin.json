@@ -1,0 +1,10 @@
+{
+  "name": "plan-project",
+  "description": "Turns a settled architecture into a dispatch-ready workplan: phase-tagged tasks with paired tests, deterministic runbooks, and a graph the orchestrator can fan out from. Slots between assess-project (design) and deliver-project (execution).",
+  "version": "0.1.0",
+  "author": {
+    "name": "dudebot"
+  },
+  "homepage": "https://github.com/dudebot/agent-toolkit",
+  "repository": "https://github.com/dudebot/agent-toolkit"
+}

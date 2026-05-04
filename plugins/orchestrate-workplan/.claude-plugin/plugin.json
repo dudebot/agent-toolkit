@@ -1,0 +1,10 @@
+{
+  "name": "orchestrate-workplan",
+  "description": "Drives a plan-project workplan to completion. Runs cheaply (Haiku-friendly), uses TodoWrite to stay on rails, dispatches workers per task, runs runbook gates, escalates failures to a more capable verifier subagent, and triggers the architecture validator at phase boundaries.",
+  "version": "0.1.0",
+  "author": {
+    "name": "dudebot"
+  },
+  "homepage": "https://github.com/dudebot/agent-toolkit",
+  "repository": "https://github.com/dudebot/agent-toolkit"
+}
