@@ -1,0 +1,10 @@
+{
+  "name": "claude-tee",
+  "description": "Tees every UserPromptSubmit to a local JSONL archive plus optional SSE/HTTP fan-out. Useful as a personal prompt archive, transcript mirror, or for piping prompts into a separate display / pipeline. Blocking the model after capture is an opt-in debug flag.",
+  "version": "0.1.0",
+  "author": {
+    "name": "dudebot"
+  },
+  "homepage": "https://github.com/dudebot/agent-toolkit",
+  "repository": "https://github.com/dudebot/agent-toolkit"
+}

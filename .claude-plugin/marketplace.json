@@ -28,6 +28,13 @@
       "description": "Drives a workplan to completion on a cheap, fast model. Mandatory TodoWrite for rails, deterministic runbook gates, more-capable verifier subagent on failure, architecture validator at phase boundaries.",
       "category": "workflow",
       "tags": ["orchestration", "haiku", "workplan", "skills", "automation"]
+    },
+    {
+      "name": "claude-tee",
+      "source": "claude-tee",
+      "description": "Tees every UserPromptSubmit to a local JSONL archive plus optional SSE/HTTP fan-out. Personal prompt archive, transcript mirror, or pipeline source. Blocking the model after capture is an opt-in debug flag.",
+      "category": "observability",
+      "tags": ["transcript", "archive", "hooks", "sse", "tee"]
     }
   ]
 }
