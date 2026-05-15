@@ -96,15 +96,30 @@ fetch_live() {
   if [[ "$http" != "200" ]]; then
     echo "quota-check: fetch failed http=$http" >&2
     rm -f "$tmp"
-    # if we have a stale cache, fall back to it rather than hard-fail
-    [[ -f "$QUOTA_CACHE" ]] && return 0
+    # If we have a stale cache, fall back to it but record the failure
+    # in the cache metadata so callers can tell stale-fallback from fresh.
+    if [[ -f "$QUOTA_CACHE" ]]; then
+      # Update the cache's last_fetch_attempt with failure info, but preserve
+      # the api data. Use atomic temp-then-rename to avoid corruption.
+      local tmp_cache
+      tmp_cache=$(mktemp)
+      jq --arg http "$http" --arg t "$(now)" \
+        '. + {last_fetch_attempt: ($t|tonumber), last_fetch_http: $http}' \
+        "$QUOTA_CACHE" > "$tmp_cache" 2>/dev/null && mv "$tmp_cache" "$QUOTA_CACHE" || rm -f "$tmp_cache"
+      return 0
+    fi
     exit 4
   fi
 
   mkdir -p "$(dirname "$QUOTA_CACHE")" "$(dirname "$QUOTA_HISTORY")"
   local t; t=$(now)
+  # Atomic write: build a temp file, then rename. Prevents readers from
+  # seeing a truncated cache during write.
+  local tmp_cache
+  tmp_cache=$(mktemp -p "$(dirname "$QUOTA_CACHE")" .cache.XXXXXX)
   jq -n --slurpfile api "$tmp" --arg t "$t" \
-    '{fetched_at: ($t|tonumber), api: $api[0]}' > "$QUOTA_CACHE"
+    '{fetched_at: ($t|tonumber), api: $api[0]}' > "$tmp_cache"
+  mv "$tmp_cache" "$QUOTA_CACHE"
 
   jq -n --slurpfile api "$tmp" --arg t "$t" -c \
     '{t: ($t|tonumber),
@@ -147,10 +162,31 @@ fi
 UTIL=$(jq -r '.api.five_hour.utilization // 0' "$QUOTA_CACHE")
 RESETS=$(jq -r '.api.five_hour.resets_at // ""' "$QUOTA_CACHE")
 UTIL7=$(jq -r '.api.seven_day.utilization // 0' "$QUOTA_CACHE")
-RESET_EPOCH=$(iso_to_epoch "$RESETS")
+FETCHED_AT=$(jq -r '.fetched_at // 0' "$QUOTA_CACHE")
+LAST_FETCH_ATTEMPT=$(jq -r '.last_fetch_attempt // .fetched_at // 0' "$QUOTA_CACHE")
+LAST_FETCH_HTTP=$(jq -r '.last_fetch_http // "200"' "$QUOTA_CACHE")
 NOW=$(now)
-MINS_TO_RESET=$(( (RESET_EPOCH - NOW) / 60 ))
-(( MINS_TO_RESET < 0 )) && MINS_TO_RESET=0
+# resets_at can be null/empty when the 5h window has no consumption — there
+# is literally no reset scheduled because there is nothing to reset. Treat
+# this as "no live window, full headroom available." A previous version
+# parsed empty → epoch 0 → mins_to_reset=0 → headroom=0 → verdict=halt, i.e.
+# the script claimed quota was exhausted precisely when usage was zero.
+if [[ -z "$RESETS" || "$RESETS" == "null" ]]; then
+  RESET_EPOCH=0
+  MINS_TO_RESET=300   # full 5h ceiling: any new usage opens at most a 5h window
+else
+  RESET_EPOCH=$(iso_to_epoch "$RESETS")
+  MINS_TO_RESET=$(( (RESET_EPOCH - NOW) / 60 ))
+  (( MINS_TO_RESET < 0 )) && MINS_TO_RESET=0
+fi
+
+# Cache age = seconds since the data in the cache was actually live-fetched.
+CACHE_AGE_SEC=$(( NOW - FETCHED_AT ))
+# is_stale = the most recent fetch ATTEMPT failed and we're serving stale data.
+IS_STALE="false"
+if [[ "$LAST_FETCH_HTTP" != "200" ]]; then
+  IS_STALE="true"
+fi
 
 read -r SLOPE SAMPLES < <(compute_slope)
 
@@ -200,10 +236,14 @@ case "$MODE" in
       --argjson headroom_min "$HEADROOM_MIN" \
       --arg wake_at "$WAKE_AT_ISO" \
       --argjson wake_delay_sec "$WAKE_DELAY_SEC" \
+      --argjson cache_age_sec "$CACHE_AGE_SEC" \
+      --argjson is_stale "$IS_STALE" \
+      --arg last_fetch_http "$LAST_FETCH_HTTP" \
       '{verdict:$verdict, util_5h:$util, util_7d:$util7, resets_at:$resets_at,
         mins_to_reset:$mins_to_reset, slope_pct_per_min:$slope_pct_per_min,
         slope_samples:$samples, proj_min_to_100:$proj_min_to_100,
-        headroom_min:$headroom_min, wake_at:$wake_at, wake_delay_sec:$wake_delay_sec}'
+        headroom_min:$headroom_min, wake_at:$wake_at, wake_delay_sec:$wake_delay_sec,
+        cache_age_sec:$cache_age_sec, is_stale:$is_stale, last_fetch_http:$last_fetch_http}'
     ;;
   text|*)
     if [[ "$VERDICT" == "ok" && "$ALWAYS_PRINT" -eq 0 ]]; then
