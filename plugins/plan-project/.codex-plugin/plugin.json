@@ -1,0 +1,22 @@
+{
+  "name": "plan-project",
+  "version": "0.1.0",
+  "description": "Turns a settled architecture into a dispatch-ready workplan: phase-tagged tasks with paired tests, deterministic runbooks, and a graph the orchestrator can fan out from.",
+  "author": {
+    "name": "dudebot"
+  },
+  "homepage": "https://github.com/dudebot/agent-toolkit",
+  "repository": "https://github.com/dudebot/agent-toolkit",
+  "keywords": ["planning", "workplan", "orchestration", "architecture"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Plan Project",
+    "shortDescription": "Turn a settled architecture into a dispatch-ready workplan.",
+    "developerName": "dudebot",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "defaultPrompt": [
+      "Use plan-project to turn this reviewed architecture into a dispatch-ready workplan."
+    ]
+  }
+}

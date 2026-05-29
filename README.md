@@ -4,6 +4,9 @@ A marketplace of hooks, plugins, and MCP servers for AI coding agents — primar
 
 ## Install the marketplace
 
+Use the GitHub-backed marketplace for normal installs. Local path installs are only for active
+development of this repository.
+
 In Claude Code:
 
 ```
@@ -23,11 +26,53 @@ Refresh after an upstream update:
 /plugin marketplace update agent-toolkit
 ```
 
+In Codex:
+
+```
+codex plugin marketplace add dudebot/agent-toolkit --ref main
+codex plugin add workflow-factory@agent-toolkit
+```
+
+Refresh after an upstream update:
+
+```
+codex plugin marketplace upgrade agent-toolkit
+codex plugin remove workflow-factory@agent-toolkit
+codex plugin add workflow-factory@agent-toolkit
+```
+
+If you previously installed the marketplace from a local checkout, remove it before installing the
+GitHub-backed source:
+
+```
+codex plugin remove workflow-factory@agent-toolkit
+codex plugin marketplace remove agent-toolkit
+codex plugin marketplace add dudebot/agent-toolkit --ref main
+codex plugin add workflow-factory@agent-toolkit
+```
+
+Codex also supports local repo marketplaces while developing this repository:
+
+```
+codex plugin marketplace add /path/to/agent-toolkit
+codex plugin add workflow-factory@agent-toolkit
+```
+
+Run Codex non-interactively with global options before the `exec` subcommand:
+
+```
+codex -a on-request exec -C /path/to/control-repo -s workspace-write -
+```
+
 ## Plugins
 
 | Plugin | What it does | Docs |
 | --- | --- | --- |
 | [`quota-watch`](./plugins/quota-watch/README.md) | Adaptive Claude Max quota monitor. Adds a `UserPromptSubmit` hook that silently watches your 5h quota, warns as you approach it, and instructs the model to park itself until reset when you cross the halt threshold. | [README](./plugins/quota-watch/README.md) |
+| [`plan-project`](./plugins/plan-project/README.md) | Turns a settled architecture into a dispatch-ready workplan: task graph, paired test tasks, deterministic runbooks, and phase handoffs. | [README](./plugins/plan-project/README.md) |
+| [`orchestrate-workplan`](./plugins/orchestrate-workplan/README.md) | Drives a workplan to completion with TodoWrite rails, runbook gates, verifier escalation, and phase validator triggers. | [README](./plugins/orchestrate-workplan/README.md) |
+| [`claude-tee`](./plugins/claude-tee/README.md) | Mirrors `UserPromptSubmit` events to a local JSONL archive and optional fan-out targets. | [README](./plugins/claude-tee/README.md) |
+| [`workflow-factory`](./plugins/workflow-factory/README.md) | Turns messy intent into durable, reviewable workflow prompts before execution starts. | [README](./plugins/workflow-factory/README.md) |
 
 ## Layout
 
@@ -37,6 +82,7 @@ Refresh after an upstream update:
 └── plugins/
     └── <plugin-name>/
         ├── .claude-plugin/plugin.json
+        ├── .codex-plugin/plugin.json
         ├── hooks/          # optional: event handlers (hooks.json + scripts)
         ├── skills/         # optional: model-invoked skills (SKILL.md per folder)
         ├── agents/         # optional: custom subagents

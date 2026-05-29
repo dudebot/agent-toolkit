@@ -1,0 +1,39 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: FactoryFeedback
+type: object
+required:
+  - id
+  - summary
+  - severity
+  - affected_artifact
+  - reproduction_context
+  - expected_behavior
+  - actual_behavior
+  - proposed_fix
+  - issue_recommendation
+properties:
+  id:
+    type: string
+  summary:
+    type: string
+  severity:
+    type: string
+    enum: [critical, high, medium, low]
+  affected_artifact:
+    type: string
+  reproduction_context:
+    type: string
+  expected_behavior:
+    type: string
+  actual_behavior:
+    type: string
+  missed_gate:
+    type: string
+  proposed_fix:
+    type: string
+  issue_recommendation:
+    type: string
+    enum: [yes, no, needs_user_decision]
+  trace_event_id:
+    type: string
+additionalProperties: false

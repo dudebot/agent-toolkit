@@ -1,0 +1,64 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: TraceEvent
+type: object
+required:
+  - ts
+  - run_id
+  - event_id
+  - event_type
+  - actor_role
+  - input_artifacts
+  - output_artifacts
+properties:
+  ts:
+    type: string
+  run_id:
+    type: string
+  event_id:
+    type: string
+  parent_event_id:
+    type: [string, "null"]
+  event_type:
+    type: string
+    enum:
+      - intake_created
+      - problem_brief_created
+      - workflow_drafted
+      - adversarial_review_created
+      - implementability_review_created
+      - workflow_finalized
+      - child_intent_created
+      - artifact_accepted
+      - artifact_rejected
+      - artifact_deferred
+      - artifact_superseded
+      - user_decision
+      - trace_audit
+  actor_role:
+    type: string
+  prompt_ref:
+    type: [string, "null"]
+  model_or_runner:
+    type: [string, "null"]
+  input_artifacts:
+    type: array
+    items:
+      type: string
+  output_artifacts:
+    type: array
+    items:
+      type: string
+  decision:
+    type: [string, "null"]
+  rationale:
+    type: [string, "null"]
+  source_refs:
+    type: array
+    items:
+      type: string
+  confidence:
+    type: [string, "null"]
+    enum: [low, medium, high, null]
+  notes:
+    type: string
+additionalProperties: false

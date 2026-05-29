@@ -1,0 +1,46 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: WorkflowFactoryRun
+type: object
+required:
+  - id
+  - intent_id
+  - status
+  - created_at
+  - artifacts
+properties:
+  id:
+    type: string
+  intent_id:
+    type: string
+  status:
+    type: string
+    enum: [started, clarified, drafted, reviewed, finalized, blocked, completed]
+  created_at:
+    type: string
+  completed_at:
+    type: [string, "null"]
+  runner:
+    type: string
+  source_paths:
+    type: array
+    items:
+      type: string
+  artifacts:
+    type: array
+    items:
+      type: string
+  trace_ledger:
+    type: string
+  artifact_index:
+    type: string
+  parent_run_id:
+    type: [string, "null"]
+  decisions:
+    type: array
+    items:
+      type: string
+  blockers:
+    type: array
+    items:
+      type: string
+additionalProperties: false

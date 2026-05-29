@@ -1,0 +1,59 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Intent
+type: object
+required:
+  - id
+  - title
+  - project
+  - status
+  - raw_intent
+  - desired_outcome
+  - why_it_matters
+  - must_not_happen
+properties:
+  id:
+    type: string
+  title:
+    type: string
+  project:
+    type: string
+  status:
+    type: string
+    enum:
+      - inbox
+      - clarified
+      - proposed
+      - reviewed
+      - approved
+      - queued
+      - running
+      - completed
+      - rejected
+      - deferred
+      - merged
+  raw_intent:
+    type: string
+  desired_outcome:
+    type: string
+  why_it_matters:
+    type: string
+  must_not_happen:
+    type: array
+    items:
+      type: string
+  known_inputs:
+    type: array
+    items:
+      type: string
+  urgency:
+    type: string
+    enum: [now, soon, later, someday]
+  parent_intent_id:
+    type: [string, "null"]
+  decision_needed:
+    type: boolean
+  private_context:
+    type: boolean
+  notes:
+    type: string
+additionalProperties: false

@@ -1,0 +1,24 @@
+{
+  "name": "workflow-factory",
+  "version": "0.1.0",
+  "description": "Turns messy project intent into durable, reviewable workflow prompts, with intake briefs, adversarial review, implementability checks, child-intent capture, and handoff artifacts.",
+  "author": {
+    "name": "dudebot"
+  },
+  "homepage": "https://github.com/dudebot/agent-toolkit",
+  "repository": "https://github.com/dudebot/agent-toolkit",
+  "keywords": ["workflow", "intake", "planning", "orchestration"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Workflow Factory",
+    "shortDescription": "Turn messy intent into reviewable workflow prompts.",
+    "longDescription": "Capture rough project intent, clarify it into a problem brief, draft workflows, run adversarial and implementability reviews, finalize runnable prompts, and preserve child work as inbox intents.",
+    "developerName": "dudebot",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "defaultPrompt": [
+      "Use workflow-factory to turn this messy project idea into a durable workflow.",
+      "Use workflow-factory to review and finalize this proposed workflow before execution."
+    ]
+  }
+}

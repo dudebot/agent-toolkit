@@ -1,0 +1,22 @@
+{
+  "name": "orchestrate-workplan",
+  "version": "0.1.0",
+  "description": "Drives a plan-project workplan to completion with TodoWrite rails, deterministic runbook gates, verifier escalation, and architecture validator triggers.",
+  "author": {
+    "name": "dudebot"
+  },
+  "homepage": "https://github.com/dudebot/agent-toolkit",
+  "repository": "https://github.com/dudebot/agent-toolkit",
+  "keywords": ["orchestration", "workplan", "automation", "skills"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Orchestrate Workplan",
+    "shortDescription": "Drive a dispatch-ready workplan through runbook-gated execution.",
+    "developerName": "dudebot",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "defaultPrompt": [
+      "Use orchestrate-workplan to execute this existing workplan."
+    ]
+  }
+}

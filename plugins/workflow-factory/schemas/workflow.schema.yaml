@@ -1,0 +1,91 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: Workflow
+type: object
+required:
+  - id
+  - intent_id
+  - title
+  - status
+  - purpose
+  - required_inputs
+  - capability_preflight
+  - allowed_outputs
+  - must_not_do
+  - steps
+  - acceptance_criteria
+properties:
+  id:
+    type: string
+  intent_id:
+    type: string
+  title:
+    type: string
+  status:
+    type: string
+    enum: [proposed, reviewed, approved, queued, running, completed, rejected, deferred]
+  purpose:
+    type: string
+  when_to_run:
+    type: string
+  required_inputs:
+    type: array
+    items:
+      type: string
+  optional_inputs:
+    type: array
+    items:
+      type: string
+  missing_input_behavior:
+    type: string
+  capability_preflight:
+    type: array
+    items:
+      type: object
+      required:
+        - capability
+        - required
+        - check
+        - missing_behavior
+      properties:
+        capability:
+          type: string
+        required:
+          type: boolean
+        check:
+          type: string
+        missing_behavior:
+          type: string
+      additionalProperties: false
+  allowed_outputs:
+    type: array
+    items:
+      type: string
+  must_not_do:
+    type: array
+    items:
+      type: string
+  steps:
+    type: array
+    items:
+      type: string
+  stop_conditions:
+    type: array
+    items:
+      type: string
+  escalation_conditions:
+    type: array
+    items:
+      type: string
+  child_intent_policy:
+    type: string
+  handoff_artifacts:
+    type: array
+    items:
+      type: string
+  acceptance_criteria:
+    type: array
+    items:
+      type: string
+  suggested_runner:
+    type: string
+additionalProperties: false
