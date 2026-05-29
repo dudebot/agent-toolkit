@@ -64,9 +64,9 @@ Create a V1 trace driver and V2 orchestrator path that supports:
 ### V1 Deliverables
 
 - Consolidated roadmap: `plugins/workflow-factory/work-items/ROADMAP.md`
-- Trace driver CLI/script.
+- Trace driver CLI/script. Initial thin driver exists at `plugins/workflow-factory/scripts/workflow_factory.py`.
 - Run directory initializer.
-- Capability prerequisite schema and validator.
+- Capability prerequisite checks for commands, paths, env vars, add-dir paths, and writable paths.
 - Permission profile schema and validator.
 - Telemetry metadata capture for wall time and token usage when available.
 - Blocked-run artifact format.

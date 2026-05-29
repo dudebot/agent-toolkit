@@ -23,6 +23,28 @@ The skill guides an agent through a repeatable workflow-production line:
 8. Maintain a trace ledger and artifact index so rejected or bad artifacts can be audited later.
 9. Capture defects in the factory itself as reviewable feedback artifacts instead of noisy automatic issues.
 
+## Thin Driver
+
+The package includes a small deterministic driver that removes the need to memorize long
+`codex exec` prompts for common stages:
+
+```text
+python3 plugins/workflow-factory/scripts/workflow_factory.py init-run \
+  --control-root /path/to/admin \
+  --intent /path/to/admin/projects/<project>/intents/inbox/<intent>.md
+
+python3 plugins/workflow-factory/scripts/workflow_factory.py run-stage \
+  --run /path/to/admin/projects/<project>/runs/<run-id> \
+  --stage propose \
+  --runner codex \
+  --add-dir /path/to/target-repo \
+  --require-command gh \
+  --require-command codex
+```
+
+By default `run-stage` renders the prompt and writes trace artifacts, but does not launch the model.
+Add `--execute` to run Codex after preflight passes.
+
 ## What it does not do
 
 - It does not execute implementation work by default.
@@ -95,4 +117,4 @@ codex -a on-request exec -C /path/to/control-repo -s workspace-write -
 
 ## Status
 
-v0.1.0 - bootstrap skill and artifact templates. The first real use should manually review the generated workflows before execution.
+v0.2.0 - bootstrap skill, artifact templates, and thin trace driver. The first real use should manually review generated workflows before implementation execution.

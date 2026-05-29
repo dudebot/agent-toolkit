@@ -1,6 +1,6 @@
 {
   "name": "workflow-factory",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Turns messy project intent into durable, reviewable workflow prompts, with intake briefs, adversarial review, implementability checks, child-intent capture, and handoff artifacts.",
   "author": {
     "name": "dudebot"

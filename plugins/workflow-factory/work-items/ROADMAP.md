@@ -129,6 +129,8 @@ Remediation intents must not auto-run. They enter the inbox and require user app
 
 V1 should make workflow-factory reliable enough for repeated self-service use.
 
+Initial thin driver exists at `plugins/workflow-factory/scripts/workflow_factory.py`. It covers run creation, preflight checks, prompt rendering for the `propose` stage, optional Codex execution, telemetry capture, blocked-run artifacts, remediation intent creation, and minimum run validation.
+
 ### Goals
 
 - Enforce run directory shape.

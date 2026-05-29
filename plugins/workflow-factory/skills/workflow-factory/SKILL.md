@@ -7,6 +7,20 @@ description: Use when the user provides messy project intent and wants it conver
 
 This skill turns rough intent into workflow artifacts. It does not execute the resulting workflow unless the user explicitly asks for execution after approval.
 
+## Driver
+
+When the repository includes `scripts/workflow_factory.py`, prefer it for deterministic run setup, preflight, prompt rendering, telemetry, and validation instead of hand-writing long runner prompts. Use the prompt workflow directly only when the driver is unavailable or the user asks for manual operation.
+
+Common flow:
+
+```text
+python3 plugins/workflow-factory/scripts/workflow_factory.py init-run --control-root <admin> --intent <intent.md>
+python3 plugins/workflow-factory/scripts/workflow_factory.py run-stage --run <run-dir> --stage propose --runner codex --add-dir <target-repo>
+python3 plugins/workflow-factory/scripts/workflow_factory.py validate-run --run <run-dir>
+```
+
+Add `--execute` to `run-stage` only when the user explicitly wants the stage launched. Without `--execute`, the driver renders the prompt and trace artifacts only.
+
 ## Core contract
 
 Preserve the user's original intent, then make the next agent's job bounded:
