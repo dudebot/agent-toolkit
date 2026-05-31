@@ -1,9 +1,0 @@
-projects:
-  example_project:
-    owner: "owner-or-org"
-    repo: "https://github.com/owner-or-org/example-project"
-    status: "parked"
-    domain: "short domain label"
-    control_path: "projects/example_project"
-    notes:
-      - "Keep real private project details in the control repo, not reusable package docs."

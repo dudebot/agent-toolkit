@@ -36,12 +36,5 @@
       "category": "observability",
       "tags": ["transcript", "archive", "hooks", "sse", "tee"]
     },
-    {
-      "name": "workflow-factory",
-      "source": "./plugins/workflow-factory",
-      "description": "Turns messy project intent into durable, reviewable workflow prompts with intake briefs, adversarial review, implementability checks, child-intent capture, and handoff artifacts.",
-      "category": "workflow",
-      "tags": ["workflow", "intake", "skills", "planning", "orchestration"]
-    }
   ]
 }
