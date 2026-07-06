@@ -1,0 +1,22 @@
+{
+  "name": "dead-code-detector",
+  "version": "0.1.0",
+  "description": "Find code that can be safely deleted via ecosystem tools, reference analysis, and git-history abandonment patterns. Confidence-tiered report; deletes nothing without explicit instruction.",
+  "author": {
+    "name": "dudebot"
+  },
+  "homepage": "https://github.com/dudebot/agent-toolkit",
+  "repository": "https://github.com/dudebot/agent-toolkit",
+  "keywords": ["dead-code", "cleanup", "refactoring", "code-quality"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Dead Code Detector",
+    "shortDescription": "Confidence-tiered dead-code detection with shown evidence.",
+    "developerName": "dudebot",
+    "category": "Productivity",
+    "capabilities": ["Read"],
+    "defaultPrompt": [
+      "Use dead-code-detector to scan this codebase and report what can be safely deleted."
+    ]
+  }
+}

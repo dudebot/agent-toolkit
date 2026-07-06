@@ -1,0 +1,10 @@
+{
+  "name": "dead-code-detector",
+  "description": "Find code that can be safely deleted -- unused files, exports, functions, abandoned experiments -- via ecosystem tools, reference analysis, and git-history abandonment patterns. Confidence-tiered report with shown evidence; deletes nothing without explicit instruction.",
+  "version": "0.1.0",
+  "author": {
+    "name": "dudebot"
+  },
+  "homepage": "https://github.com/dudebot/agent-toolkit",
+  "repository": "https://github.com/dudebot/agent-toolkit"
+}

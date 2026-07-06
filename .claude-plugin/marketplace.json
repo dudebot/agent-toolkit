@@ -49,6 +49,20 @@
       "description": "Evidence-based architecture pass for greedy seams: falsifiable claims, adversarial verification with forced verdicts, then cheapest-first behavior-preserving extractions that each reduce a nameable coupling count.",
       "category": "code-quality",
       "tags": ["architecture", "refactoring", "seams", "skills"]
+    },
+    {
+      "name": "docs-autopsy",
+      "source": "./plugins/docs-autopsy",
+      "description": "Evidence-based docs audit: per-file verdicts verified against the code, authority-claiming docs audited hardest, superseded design capsules archived with provenance, coverage-gap sweep for undocumented features.",
+      "category": "code-quality",
+      "tags": ["documentation", "audit", "staleness", "skills"]
+    },
+    {
+      "name": "dead-code-detector",
+      "source": "./plugins/dead-code-detector",
+      "description": "Confidence-tiered dead-code detection: ecosystem tools first, reference analysis, git-history abandonment patterns. Evidence shown, edge cases demote confidence, deletes nothing without explicit instruction.",
+      "category": "code-quality",
+      "tags": ["dead-code", "cleanup", "refactoring", "skills"]
     }
   ]
 }

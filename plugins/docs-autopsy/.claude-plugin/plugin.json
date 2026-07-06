@@ -1,0 +1,10 @@
+{
+  "name": "docs-autopsy",
+  "description": "Evidence-based documentation audit: per-file verdicts verified against the code, authority-claiming docs audited hardest, superseded design capsules archived with provenance, and a coverage-gap sweep for shipped-but-undocumented features.",
+  "version": "0.1.0",
+  "author": {
+    "name": "dudebot"
+  },
+  "homepage": "https://github.com/dudebot/agent-toolkit",
+  "repository": "https://github.com/dudebot/agent-toolkit"
+}

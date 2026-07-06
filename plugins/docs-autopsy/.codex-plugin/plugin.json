@@ -1,0 +1,22 @@
+{
+  "name": "docs-autopsy",
+  "version": "0.1.0",
+  "description": "Evidence-based documentation audit: per-file verdicts verified against the code, superseded design capsules archived with provenance, coverage-gap sweep for undocumented features.",
+  "author": {
+    "name": "dudebot"
+  },
+  "homepage": "https://github.com/dudebot/agent-toolkit",
+  "repository": "https://github.com/dudebot/agent-toolkit",
+  "keywords": ["documentation", "audit", "staleness", "code-quality"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Docs Autopsy",
+    "shortDescription": "Audit a repo's docs against the code and archive the sediment.",
+    "developerName": "dudebot",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "defaultPrompt": [
+      "Use docs-autopsy to audit this repo's documentation and execute the cleanup."
+    ]
+  }
+}
