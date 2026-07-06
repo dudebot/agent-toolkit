@@ -36,5 +36,19 @@
       "category": "observability",
       "tags": ["transcript", "archive", "hooks", "sse", "tee"]
     },
+    {
+      "name": "comment-hygiene",
+      "source": "./plugins/comment-hygiene",
+      "description": "De-dusts source comments after iterative development: strips ticket tokens, review provenance, and sprint narration while preserving invariants, contracts, and platform gotchas. Findings list first, behavior-neutral apply.",
+      "category": "code-quality",
+      "tags": ["comments", "refactoring", "hygiene", "skills"]
+    },
+    {
+      "name": "seam-machine",
+      "source": "./plugins/seam-machine",
+      "description": "Evidence-based architecture pass for greedy seams: falsifiable claims, adversarial verification with forced verdicts, then cheapest-first behavior-preserving extractions that each reduce a nameable coupling count.",
+      "category": "code-quality",
+      "tags": ["architecture", "refactoring", "seams", "skills"]
+    }
   ]
 }

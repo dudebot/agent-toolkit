@@ -1,0 +1,22 @@
+{
+  "name": "comment-hygiene",
+  "version": "0.1.0",
+  "description": "Rewrites source comments to keep durable intent, invariants, and platform gotchas while stripping edit-history narration: ticket tokens, review provenance, sprint language, and stale archaeology.",
+  "author": {
+    "name": "dudebot"
+  },
+  "homepage": "https://github.com/dudebot/agent-toolkit",
+  "repository": "https://github.com/dudebot/agent-toolkit",
+  "keywords": ["comments", "refactoring", "hygiene", "code-quality"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Comment Hygiene",
+    "shortDescription": "De-dust process narration out of code comments without losing invariants.",
+    "developerName": "dudebot",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "defaultPrompt": [
+      "Use comment-hygiene to sweep this codebase's comments and apply the de-dusting pass."
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "seam-machine",
+  "version": "0.1.0",
+  "description": "Evidence-based architecture pass for greedy seams: diagnose with falsifiable claims, adversarially verify, then extract cheapest-first as behavior-preserving commits.",
+  "author": {
+    "name": "dudebot"
+  },
+  "homepage": "https://github.com/dudebot/agent-toolkit",
+  "repository": "https://github.com/dudebot/agent-toolkit",
+  "keywords": ["architecture", "refactoring", "seams", "extraction", "code-quality"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Seam Machine",
+    "shortDescription": "Find greedy module boundaries, verify the claims, extract them cleanly.",
+    "developerName": "dudebot",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "defaultPrompt": [
+      "Use seam-machine to review this codebase's module boundaries and extract the greedy seams."
+    ]
+  }
+}

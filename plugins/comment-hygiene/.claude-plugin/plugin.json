@@ -1,0 +1,10 @@
+{
+  "name": "comment-hygiene",
+  "description": "Rewrites source comments to keep durable intent, invariants, and platform gotchas while stripping edit-history narration: ticket tokens, review provenance, sprint language, and stale archaeology. Findings list first, behavior-neutral apply, tech-debt flags out the back.",
+  "version": "0.1.0",
+  "author": {
+    "name": "dudebot"
+  },
+  "homepage": "https://github.com/dudebot/agent-toolkit",
+  "repository": "https://github.com/dudebot/agent-toolkit"
+}

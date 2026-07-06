@@ -1,0 +1,10 @@
+{
+  "name": "seam-machine",
+  "description": "Evidence-based architecture pass for greedy seams: god functions, callback accretion, wrong-layer code, scattered invariants. Diagnose with falsifiable claims, adversarially verify, then extract cheapest-first as behavior-preserving commits that each reduce a nameable coupling count.",
+  "version": "0.1.0",
+  "author": {
+    "name": "dudebot"
+  },
+  "homepage": "https://github.com/dudebot/agent-toolkit",
+  "repository": "https://github.com/dudebot/agent-toolkit"
+}
