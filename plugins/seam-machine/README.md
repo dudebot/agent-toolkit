@@ -17,7 +17,8 @@ can only reach through closures; one-class-many-jobs.
    existing module, prove the attachment point is natural ownership — not just the
    cheapest place the current code can reach. An integration that deepens a greed
    signal stops and proposes the smallest ownership move first; a deliberate bolt-on
-   is acceptable only with the increased coupling count named on the record.
+   is a user decision, with the increased coupling count and the deferred move
+   recorded on the owner list.
 1. **Diagnose**: inventory → full reads of the suspects → falsifiable claims with
    file:line evidence → **adversarial verification** by an independent reviewer with
    forced verdicts (`REAL-AND-WORTH-FIXING / REAL-BUT-LEAVE-IT / OVERBLOWN`) plus a

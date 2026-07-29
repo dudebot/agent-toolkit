@@ -1,6 +1,6 @@
 {
   "name": "seam-machine",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Evidence-based architecture pass for greedy seams: gate new integrations at write-time, diagnose with falsifiable claims, adversarially verify, then extract cheapest-first as behavior-preserving commits.",
   "author": {
     "name": "dudebot"
@@ -11,7 +11,7 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Seam Machine",
-    "shortDescription": "Find greedy module boundaries, verify the claims, extract them cleanly.",
+    "shortDescription": "Gate integrations at write-time, find greedy module boundaries, verify the claims, extract them cleanly.",
     "developerName": "dudebot",
     "category": "Productivity",
     "capabilities": ["Read", "Write"],
