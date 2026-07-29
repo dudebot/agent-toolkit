@@ -1,6 +1,6 @@
 {
   "name": "seam-machine",
-  "description": "Evidence-based architecture pass for greedy seams: god functions, callback accretion, wrong-layer code, scattered invariants. Gate new integrations at write-time, diagnose with falsifiable claims, adversarially verify, then extract cheapest-first as behavior-preserving commits that each reduce a nameable coupling count.",
+  "description": "Evidence-based architecture pass for greedy seams: god functions, callback accretion, wrong-layer code, scattered invariants. Diagnose with falsifiable claims, adversarially verify, then extract cheapest-first as behavior-preserving commits that each reduce a nameable coupling count.",
   "version": "0.2.0",
   "author": {
     "name": "dudebot"

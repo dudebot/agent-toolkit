@@ -1,6 +1,6 @@
 ---
 name: seam-machine
-description: Use when a codebase's module boundaries feel wrong — god functions, callback bags, layers absorbing work that belongs elsewhere — and the user wants an evidence-based architecture pass. Also use before wiring a new feature into an existing module, to check the attachment point is natural ownership rather than the cheapest reachable place. Triggers on "the seams feel greedy", "architecture review", "god function", "this module does too much", "extract this cleanly", "where should this feature live", "add/integrate/wire this into <existing module>", "bolt this on". Finds greedy seams, adversarially verifies each claim, then executes extractions cheapest-first as behavior-preserving commits.
+description: Use when a codebase's module boundaries feel wrong — god functions, callback bags, layers absorbing work that belongs elsewhere — and the user wants an evidence-based architecture pass. Triggers on "the seams feel greedy", "architecture review", "god function", "this module does too much", "extract this cleanly". Finds greedy seams, adversarially verifies each claim, then executes extractions cheapest-first as behavior-preserving commits.
 ---
 
 # seam-machine
@@ -11,11 +11,10 @@ existed, and each later feature found it cheaper to bolt on than to move out. Gr
 seams are how a codebase gets a 400-line function nobody can test and a constructor
 with six callbacks.
 
-This skill has one write-time gate and two cleanup gates: **integration pressure
-check** (before new code lands in an existing module), then **diagnose** (claims →
-adversarial verification → scoreboard) and **extract** (cheapest-first, one seam per
-commit). Never skip the verification gate — plausible-but-wrong seam claims produce
-refactors that shuffle code without reducing coupling.
+This skill runs in two gates: **diagnose** (claims → adversarial verification →
+scoreboard) and **extract** (cheapest-first, one seam per commit). Never skip the
+verification gate — plausible-but-wrong seam claims produce refactors that shuffle
+code without reducing coupling.
 
 ## Greed signals (the detector list)
 
@@ -45,29 +44,6 @@ refactors that shuffle code without reducing coupling.
 The examples use C++ vocabulary; the signals are language-agnostic — read
 `std::function` as closure-per-feature, translation unit as module-private,
 #include count as import count.
-
-## Gate 0 — integration pressure check
-
-Fires at write-time, not cleanup-time: before wiring a new feature into an existing
-module. Greedy seams are *made* at integration, one cheap attachment at a time —
-this gate is where the accretion stops. Answer in writing, before the first edit:
-
-1. What responsibility is being added?
-2. Which existing type/module already owns that responsibility?
-3. Does the change add another callback, flag, mutable global, catalog entry, or
-   cross-layer import — i.e., deepen a greed signal from the list above?
-4. Is the chosen attachment point natural ownership, or just the cheapest place the
-   current code can reach?
-5. If bolting on anyway is the right call today, name the coupling count it increases
-   and where the code should move later.
-
-If the integration deepens any greed signal from the list, the default is to stop
-and propose the smallest ownership move first — then wire the feature through the
-corrected boundary. A deliberate bolt-on is a user decision, not an agent shortcut:
-surface the tradeoff, and record question 5's answer on the owner list so the debt
-has a home. The tell in practice: another lambda closing into the main loop is the
-cheap attachment; a method on the type that owns that state is the natural one —
-the gate exists to pick the second.
 
 ## Gate 1 — diagnose
 
