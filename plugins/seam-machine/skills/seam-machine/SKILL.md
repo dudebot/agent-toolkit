@@ -1,6 +1,6 @@
 ---
 name: seam-machine
-description: Use when a codebase's module boundaries feel wrong — god functions, callback bags, layers absorbing work that belongs elsewhere — and the user wants an evidence-based architecture pass. Triggers on "the seams feel greedy", "architecture review", "god function", "this module does too much", "extract this cleanly". Finds greedy seams, adversarially verifies each claim, then executes extractions cheapest-first as behavior-preserving commits.
+description: Use when a codebase's module boundaries feel wrong — god functions, callback bags, layers absorbing work that belongs elsewhere — and the user wants an evidence-based architecture pass. Also use before wiring a new feature into an existing module, to check the attachment point is natural ownership rather than the cheapest reachable place. Triggers on "the seams feel greedy", "architecture review", "god function", "this module does too much", "extract this cleanly", "where should this feature live". Finds greedy seams, adversarially verifies each claim, then executes extractions cheapest-first as behavior-preserving commits.
 ---
 
 # seam-machine
@@ -11,10 +11,11 @@ existed, and each later feature found it cheaper to bolt on than to move out. Gr
 seams are how a codebase gets a 400-line function nobody can test and a constructor
 with six callbacks.
 
-This skill runs in two gates: **diagnose** (claims → adversarial verification →
-scoreboard) and **extract** (cheapest-first, one seam per commit). Never skip the
-verification gate — plausible-but-wrong seam claims produce refactors that shuffle
-code without reducing coupling.
+This skill has one write-time gate and two cleanup gates: **integration pressure
+check** (before new code lands in an existing module), then **diagnose** (claims →
+adversarial verification → scoreboard) and **extract** (cheapest-first, one seam per
+commit). Never skip the verification gate — plausible-but-wrong seam claims produce
+refactors that shuffle code without reducing coupling.
 
 ## Greed signals (the detector list)
 
@@ -40,6 +41,25 @@ code without reducing coupling.
    indirection dissolves.
 8. **One class, many jobs.** Selection + caching + IO + policy in one class. Rank by
    what it *blocks* (live reload, testing) rather than aesthetics.
+
+## Gate 0 — integration pressure check
+
+Fires at write-time, not cleanup-time: before wiring a new feature into an existing
+module. Greedy seams are *made* at integration, one cheap attachment at a time —
+this gate is where the accretion stops. Ask:
+
+1. What responsibility is being added?
+2. Which existing type/module already owns that responsibility?
+3. Does the change add another callback, flag, mutable global, catalog entry, or
+   cross-layer import — i.e., deepen a greed signal from the list above?
+4. Is the chosen attachment point natural ownership, or just the cheapest place the
+   current code can reach?
+5. If bolting on anyway is the right call today, name the coupling count it increases
+   and where the code should move later.
+
+If the integration deepens a known greed signal, stop and propose the smallest
+ownership move first — then wire the feature through the corrected boundary. A
+deliberate bolt-on is acceptable only with question 5 answered on the record.
 
 ## Gate 1 — diagnose
 

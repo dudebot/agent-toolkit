@@ -1,7 +1,7 @@
 {
   "name": "seam-machine",
   "version": "0.1.0",
-  "description": "Evidence-based architecture pass for greedy seams: diagnose with falsifiable claims, adversarially verify, then extract cheapest-first as behavior-preserving commits.",
+  "description": "Evidence-based architecture pass for greedy seams: gate new integrations at write-time, diagnose with falsifiable claims, adversarially verify, then extract cheapest-first as behavior-preserving commits.",
   "author": {
     "name": "dudebot"
   },
@@ -16,7 +16,7 @@
     "category": "Productivity",
     "capabilities": ["Read", "Write"],
     "defaultPrompt": [
-      "Use seam-machine to review this codebase's module boundaries and extract the greedy seams."
+      "Use seam-machine to diagnose this codebase's module boundaries. Produce a verified scoreboard first; only extract after the user approves a rung."
     ]
   }
 }
