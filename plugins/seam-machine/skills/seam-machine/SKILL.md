@@ -40,6 +40,9 @@ code without reducing coupling.
    indirection dissolves.
 8. **One class, many jobs.** Selection + caching + IO + policy in one class. Rank by
    what it *blocks* (live reload, testing) rather than aesthetics.
+9. **Cyclic or bidirectional dependency.** Two modules importing each other, or a
+   lower layer reaching up for a higher-layer type to finish one feature. Tell:
+   mutual imports, friend/backchannel access.
 
 The examples use C++ vocabulary; the signals are language-agnostic — read
 `std::function` as closure-per-feature, translation unit as module-private,
@@ -48,7 +51,9 @@ The examples use C++ vocabulary; the signals are language-agnostic — read
 ## Gate 1 — diagnose
 
 1. **Inventory.** File sizes, include/import graph, longest functions, grep for
-   file-scope mutable state. The biggest recently-grown files are the prime suspects.
+   file-scope mutable state, and git log for change coupling — supposedly separate
+   modules that keep landing in the same commits. The biggest recently-grown files
+   are the prime suspects.
 2. **Read the suspects in full.** Skimming finds style; only full reads find seams.
 3. **Write claims as falsifiable statements**: the seam, the evidence (file:line), the
    specific extraction, and its blast radius (call sites touched). One claim per seam.
@@ -56,10 +61,13 @@ The examples use C++ vocabulary; the signals are language-agnostic — read
    model, a fresh agent, or a cold session — with *forced verdicts*:
    `REAL-AND-WORTH-FIXING / REAL-BUT-LEAVE-IT / OVERBLOWN`, per sub-item, plus "name
    up to 3 greedy seams NOT in this list, with file:line evidence." The missed-seams
-   question routinely earns its cost.
+   question routinely earns its cost. The reviewer must read each claim's cited
+   source before issuing a verdict and state the strongest counterevidence they
+   found — forced labels without an independent read are rubber-stamping.
 5. **Scoreboard.** Verdicts, one line each, ranked by future tax. Items needing a
    product decision (delete vs. fix a dying subsystem) go to a separate owner list —
-   they are not extraction work.
+   they are not extraction work. Present the scoreboard and get the user's sign-off
+   on the rung order before extracting, unless they already authorized the full pass.
 
 ## Gate 2 — extract
 
@@ -67,10 +75,14 @@ Order by **(cost × independence)**: cheapest, least-entangled first. For each r
 
 - One seam per commit, behavior-preserving. Never bundle a behavior change or bug fix
   into a move commit — if the move exposes a bug, fix it in its own commit.
-- Build and full test suite green before and after every rung.
+- Build and full test suite green before and after every rung. Green only protects
+  covered behavior — check the code being moved is actually exercised; if it isn't,
+  first pin current behavior with characterization tests in their own commit.
 - The commit must *reduce a coupling count* you can name (callbacks removed, call sites
-  deduplicated, globals eliminated, #includes dropped). A move that relocates code
-  without shrinking any count is churn — skip it.
+  deduplicated, globals eliminated, #includes dropped). The reduction must be net:
+  removing three callbacks by adding four accessors is an increase wearing a
+  decrease's clothes. A move that relocates code without shrinking any count is
+  churn — skip it.
 - Stop the ladder when the next rung needs a product decision or a redesign
   (an "extraction" touching dozens of call sites is a redesign wearing a refactor's
   clothes — park it on the owner list).
