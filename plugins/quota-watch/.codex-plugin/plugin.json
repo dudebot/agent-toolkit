@@ -1,6 +1,6 @@
 {
   "name": "quota-watch",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Codex plan quota monitor. A UserPromptSubmit hook injects a wind-down notice near the limit, and a skill lets the agent report remaining usage on request.",
   "author": {
     "name": "dudebot"

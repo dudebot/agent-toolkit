@@ -1,7 +1,7 @@
 {
   "name": "quota-watch",
   "description": "Adaptive Claude Max quota monitor. Reads 5h/7d utilization from the Anthropic OAuth usage endpoint on every user prompt, emits a context line at warn/halt thresholds, and instructs the model to sleep until reset when the halt threshold is crossed. Includes a quota-status skill.",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": {
     "name": "dudebot"
   },

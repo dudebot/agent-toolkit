@@ -332,7 +332,7 @@ def main():
             "limit_reached": usage.get("limit_reached"),
             "credits": usage.get("credits"),
             "windows": ws,
-            "cache_age_sec": now - cache["fetched_at"],
+            "cache_age_sec": max(0, now - cache["fetched_at"]),
             "is_stale": stale,
             "last_error": err,
         }, indent=2))

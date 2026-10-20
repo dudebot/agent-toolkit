@@ -98,7 +98,7 @@ codex plugin marketplace add dudebot/agent-toolkit --ref main
 codex plugin add quota-watch@agent-toolkit
 ```
 
-Codex requires you to trust plugin hooks before they run: start `codex`, open `/hooks`, and approve the quota-watch `UserPromptSubmit` hook. Re-approve after plugin updates, since trust is pinned to the hook content. The skill works without the hook being trusted.
+Codex requires you to trust plugin hooks before they run: start `codex`, open `/hooks`, and approve the quota-watch `UserPromptSubmit` hook. If an update changes the hook definition, Codex asks for review again. The skill works without the hook being trusted.
 
 To call the script from cron or a plain shell, point at the installed copy under `$CODEX_HOME/plugins/cache/agent-toolkit/quota-watch/<version>/hooks/`, or keep a small wrapper on your `PATH` that resolves the newest installed version.
 
