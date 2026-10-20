@@ -1,0 +1,23 @@
+{
+  "name": "quota-watch",
+  "version": "0.2.0",
+  "description": "Codex plan quota monitor. A UserPromptSubmit hook injects a wind-down notice near the limit, and a skill lets the agent report remaining usage on request.",
+  "author": {
+    "name": "dudebot"
+  },
+  "homepage": "https://github.com/dudebot/agent-toolkit",
+  "repository": "https://github.com/dudebot/agent-toolkit",
+  "keywords": ["quota", "usage", "rate-limit", "hooks", "observability"],
+  "skills": "./skills/",
+  "hooks": "./hooks/codex-hooks.json",
+  "interface": {
+    "displayName": "Quota Watch",
+    "shortDescription": "Know how much Codex plan quota is left, and wind down before hitting the limit.",
+    "developerName": "dudebot",
+    "category": "Productivity",
+    "capabilities": ["Read"],
+    "defaultPrompt": [
+      "How much of my Codex quota is left, and when does it reset?"
+    ]
+  }
+}

@@ -11,9 +11,9 @@
     {
       "name": "quota-watch",
       "source": "./plugins/quota-watch",
-      "description": "Adaptive Claude Max quota monitor; emits context at warn/halt thresholds and auto-schedules a wake after the 5h reset.",
+      "description": "Adaptive quota monitor for Claude Max and Codex plans; emits context at warn/halt thresholds, auto-schedules a wake after the Claude 5h reset, and ships a quota-status skill.",
       "category": "observability",
-      "tags": ["quota", "claude-max", "hooks"]
+      "tags": ["quota", "claude-max", "codex", "hooks", "skills"]
     },
     {
       "name": "plan-project",

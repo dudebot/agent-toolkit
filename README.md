@@ -25,7 +25,7 @@ Refresh after an upstream update:
 /plugin marketplace update agent-toolkit
 ```
 
-In Codex (skill plugins only — see the compatibility column below):
+In Codex (plugins with a ✓ in the Codex column below):
 
 ```
 codex plugin marketplace add dudebot/agent-toolkit --ref main
@@ -44,12 +44,12 @@ Local path installs (`codex plugin marketplace add /path/to/agent-toolkit`) are 
 
 ## Plugins
 
-### Hooks (Claude Code only)
+### Hooks
 
-| Plugin | What it does |
-| --- | --- |
-| [`quota-watch`](./plugins/quota-watch/README.md) | Adaptive Claude Max quota monitor. A `UserPromptSubmit` hook that silently watches your 5h/7d utilization, warns as you approach the limit, and instructs the model to park itself until reset when you cross the halt threshold. Adaptive cache TTL keeps endpoint traffic low. |
-| [`claude-tee`](./plugins/claude-tee/README.md) | Mirrors every `UserPromptSubmit` to a local JSONL archive, with optional SSE/HTTP fan-out for live transcript overlays or pipeline triggers. Blocking the model after capture is an opt-in debug flag. |
+| Plugin | What it does | Codex |
+| --- | --- | --- |
+| [`quota-watch`](./plugins/quota-watch/README.md) | Adaptive quota monitor for Claude Max and Codex plans. A `UserPromptSubmit` hook that silently watches your utilization, warns as you approach the limit, and tells the model to park work when you cross the halt threshold (on Claude Code it also schedules a wake after reset). A `quota-status` skill answers "how much quota is left?" with live numbers. Adaptive cache TTL keeps endpoint traffic low. | ✓ |
+| [`claude-tee`](./plugins/claude-tee/README.md) | Mirrors every `UserPromptSubmit` to a local JSONL archive, with optional SSE/HTTP fan-out for live transcript overlays or pipeline triggers. Blocking the model after capture is an opt-in debug flag. | |
 
 ### Workflow skills
 
@@ -77,7 +77,7 @@ Local path installs (`codex plugin marketplace add /path/to/agent-toolkit`) are 
 └── plugins/
     └── <plugin-name>/
         ├── .claude-plugin/plugin.json # Claude Code manifest
-        ├── .codex-plugin/plugin.json  # Codex manifest (skill plugins only)
+        ├── .codex-plugin/plugin.json  # Codex manifest (Codex-compatible plugins)
         ├── hooks/                     # hook plugins: hooks.json + scripts
         ├── skills/                    # skill plugins: SKILL.md per folder
         └── README.md
@@ -87,8 +87,8 @@ Each plugin is self-contained under `plugins/<name>/`. The marketplace manifest 
 
 ## Cross-harness notes
 
-- **Skills** are markdown instructions and port cleanly: the six skill plugins carry dual manifests (`.claude-plugin/` and `.codex-plugin/`) and install into either harness.
-- **Hooks**: Claude Code and Codex both have a `UserPromptSubmit` lifecycle hook with a similar JSON-on-stdin contract, but the two hook plugins here are Claude Code-specific in practice — `quota-watch` talks to Anthropic's usage endpoint, and `claude-tee`'s payload handling targets Claude Code's schema.
+- **Skills** are markdown instructions and port cleanly: the six skill plugins (and `quota-watch`) carry dual manifests (`.claude-plugin/` and `.codex-plugin/`) and install into either harness.
+- **Hooks**: Claude Code and Codex both have a `UserPromptSubmit` lifecycle hook with a similar JSON-on-stdin contract, and plugin hooks install into both. `quota-watch` ships a script and hooks file per harness (`hooks/hooks.json` for Claude Code, `hooks/codex-hooks.json` referenced from the Codex manifest), since each talks to its own vendor's usage endpoint; Codex asks you to trust plugin hooks in `/hooks` before they run. `claude-tee` stays Claude Code-only: its payload handling targets Claude Code's schema.
 
 ## Status
 

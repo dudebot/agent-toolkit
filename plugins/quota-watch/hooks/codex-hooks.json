@@ -1,0 +1,16 @@
+{
+  "description": "quota-watch for Codex: inject a wind-down notice when Codex plan usage nears its limit.",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${PLUGIN_ROOT}/hooks/codex-quota-check.py\" --hook",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}
